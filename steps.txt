@@ -1,8 +1,51 @@
 
+1. Setup development environment
+	- Create and activate a virtual environment (recommended: `python -m venv .venv`).
+	- Install dependencies: `pip install -r requirements.txt`.
 
+2. Inspect & fix imports (done)
+	- Ensure `src/__init__.py` exists and module names match filenames (e.g., `dataloader.py`).
+
+3. Run unit tests (done)
+	- Run: `pytest -q` and fix failures.
+
+4. Run training and evaluation scripts
+	- Train: `python -m src.train` (confirms pipeline trains and persists if implemented).
+	- Evaluate: `python -m src.evaluate` (prints accuracy and verifies end-to-end predictions).
+
+5. Improve preprocessing
+	- Replace ad-hoc encoders with `ColumnTransformer` using `OneHotEncoder`/`LabelEncoder` and `StandardScaler`.
+	- Add unit tests for `build_preprocessor()` to validate output shapes and dtypes.
+
+6. Model persistence and loading
+	- Save trained pipeline to `models/` using `joblib.dump()`.
+	- Add `src/utils.py` (or `src/model.py`) helpers `save_model()` and `load_model()` with tests.
+
+7. Configuration and CLI
+	- Move paths and hyperparameters into `src/config.py` and support CLI overrides with `argparse`.
+
+8. Add more tests
+	- Add integration test to load a small CSV, train, save, load, and predict.
+	- Add edge-case tests for empty/malformed CSVs.
+
+9. Linting, formatting, and pre-commit
+	- Add `black`, `ruff`/`flake8`, and `isort`; configure `pre-commit` hooks.
+
+10. Continuous integration
+	 - Add GitHub Actions workflow to run `pip install -r requirements.txt` and `pytest` on push/PR.
+
+11. Documentation
+	 - Update `README.md` with setup, run, test, and development instructions.
+
+12. Experimentation & productionization
+	 - Add notebooks or scripts for hyperparameter tuning, cross-validation, and a Dockerfile for deployment.
+
+Quick commands:
+```
+python -m venv .venv
+.venv\Scripts\activate
+pip install -r requirements.txt
+pytest -q
 python -m src.train
-
-
 python -m src.evaluate
-
-pytest 
+```
